@@ -1,55 +1,67 @@
 using Microsoft.AspNetCore.Mvc;
 using osu_buckeye_api.Domain.Catalog;
+using osu_buckeye_api.Data;
 
-namespace osu_buckeye_api.Api.Controllers;
+namespace osu-buckeye-api.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
 public class CatalogController : ControllerBase
 {
-    [HttpGet]
-    public IActionResult GetItems()
+    private readonly StoreContext _db;
+
+    public CatalogController(StoreContext db)
     {
-        var items = new List<Item>()
-        {
-            new Item("Scarlet Shirt", "Ohio State shirt", "Nike", 29.99m),
-            new Item("Gray Shorts", "Ohio State shorts", "Nike", 44.99m)
-        };
-        return Ok(items);
+        _db = db;
     }
+
+    [HttpGet]
+    public IActionResult GetItems() => Ok(_db.Items.ToList());
 
     [HttpGet("{id:int}")]
     public IActionResult GetItem(int id)
     {
-        var item = new Item("Scarlet Shirt", "Ohio State shirt", "Nike", 29.99m);
-        item.Id = id;
-        return Ok(item);
+        var item = _db.Items.Find(id);
+        return item == null ? NotFound() : Ok(item);
     }
 
     [HttpPost]
     public IActionResult Post(Item item)
     {
-        return Created($"/catalog/42", item);
+        _db.Items.Add(item);
+        _db.SaveChanges();
+        return Created($"/catalog/{item.Id}", item);
     }
 
     [HttpPost("{id:int}/ratings")]
     public IActionResult PostRating(int id, [FromBody] Rating rating)
     {
-        var item = new Item("Scarlet Shirt", "Ohio State shirt", "Nike", 29.99m);
-        item.Id = id;
+        var item = _db.Items.Find(id);
+        if (item == null) return NotFound();
+        
         item.AddRating(rating);
+        _db.SaveChanges();
         return Ok(item);
     }
 
     [HttpPut("{id:int}")]
     public IActionResult Put(int id, Item item)
     {
+        if (id != item.Id) return BadRequest();
+        
+        _db.Entry(item).State = EntityState.Modified;
+        _db.SaveChanges();
         return NoContent();
     }
 
     [HttpDelete("{id:int}")]
     public IActionResult Delete(int id)
     {
-        return NoContent();
+        var item = _db.Items.Find(id);
+        if (item == null) return NotFound();
+        
+        _db.Items.Remove(item);
+        _db.SaveChanges();
+        return Ok();
     }
 }
