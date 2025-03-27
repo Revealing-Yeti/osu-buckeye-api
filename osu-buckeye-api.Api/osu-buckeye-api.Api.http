@@ -1,0 +1,6 @@
+@osu_buckeye_api.Api_HostAddress = http://localhost:5100
+
+GET {{osu_buckeye_api.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
