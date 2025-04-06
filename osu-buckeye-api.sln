@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "osu-buckeye-api", "osu-buck
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "osu-buckeye-api.Data", "osu-buckeye-api.Data\osu-buckeye-api.Data.csproj", "{3641A41D-7AA9-43F6-A564-168CE5FC9E3C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{D6102D21-7294-4A2B-8FE5-6A0B522F1CAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "osu-buckeye-api.Domain.Tests", "tests\osu-buckeye-api.Domain.Tests\osu-buckeye-api.Domain.Tests.csproj", "{280C7182-EF3F-4204-8781-330276914418}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +40,12 @@ Global
 		{3641A41D-7AA9-43F6-A564-168CE5FC9E3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3641A41D-7AA9-43F6-A564-168CE5FC9E3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3641A41D-7AA9-43F6-A564-168CE5FC9E3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{280C7182-EF3F-4204-8781-330276914418}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{280C7182-EF3F-4204-8781-330276914418}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{280C7182-EF3F-4204-8781-330276914418}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{280C7182-EF3F-4204-8781-330276914418}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{280C7182-EF3F-4204-8781-330276914418} = {D6102D21-7294-4A2B-8FE5-6A0B522F1CAB}
 	EndGlobalSection
 EndGlobal
