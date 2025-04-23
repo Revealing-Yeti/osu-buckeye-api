@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using osu_buckeye_api.Domain.Catalog;
 using osu_buckeye_api.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace osu-buckeye-api.Api.Controllers;
 
@@ -55,6 +56,7 @@ public class CatalogController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
+    [Authorize("delete:catalog")]
     public IActionResult Delete(int id)
     {
         var item = _db.Items.Find(id);
